@@ -1,21 +1,21 @@
 import { Router } from 'express'
-import postModel from '../models/post'
+import postModel from '../models/post/post'
 
-const router = Router()
+const post: Router = Router()
 
-router.get("/posts", async (req, res) => {
+post.get("/", async (req, res) => {
     const posts = await postModel.find()
     res.send(posts)
 })
 
-router.post("/posts", async (req, res) => {
+post.post("/", async (req, res) => {
     const { title, description } = req.body
     const post = new postModel({ title, description })
     await post.save()
     res.send(post)
 })
 
-router.get("/posts/:id", async (req, res) => {
+post.get("/:id", async (req, res) => {
     try {
         const { id } = req.params
         const post = await postModel.findById(id)
@@ -26,7 +26,7 @@ router.get("/posts/:id", async (req, res) => {
     }
 })
 
-router.delete("/posts/:id", async (req, res) => {
+post.delete("/:id", async (req, res) => {
     try {
         const { id } = req.params
         const post = await postModel.findByIdAndDelete(id)
@@ -37,7 +37,7 @@ router.delete("/posts/:id", async (req, res) => {
     }
 })
 
-router.put("/posts/:id", async (req, res) => {
+post.put("/:id", async (req, res) => {
     try {
         const body = req.body
         const post = await postModel.findByIdAndUpdate(req.params.id, body, { new: true })
@@ -48,4 +48,5 @@ router.put("/posts/:id", async (req, res) => {
     }
 })
 
-export default router
+// module.exports = post;
+export default post

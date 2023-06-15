@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import path from 'path';
 
-import postRoutes from './routes'
+import routes from './src/routes'
 
 const app = express()
 
@@ -11,7 +11,8 @@ app.use(cors())
 app.use(morgan("dev"))
 app.use(express.json())
 
-app.use("/api", postRoutes)
+// app.use("/api", routes)
+app.use("/api", routes)
 
 // Para servir archivos estáticos
 // app.use(express.static(path.join(__dirname, "../dist")))
